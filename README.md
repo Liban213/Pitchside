@@ -1,8 +1,7 @@
 # Pitchside
 
 A Go service that ingests Premier League match data from football-data.org,
-stores it in Postgres, and caches upstream calls in Redis to stay within the
-free API tier's rate limit.
+stores it in Postgres, and caches upstream calls in Redis
 
 ## Status: Day 1
 
@@ -28,14 +27,8 @@ WebSocket updates are not built yet.
   embedded SQL migrations
 - `cmd/pitchside` — entrypoint that syncs teams and this week's fixtures
 
-## Running locally
 
 ```
-docker compose up -d
-cp .env.example .env   # add your football-data.org API key
-go run ./cmd/pitchside
-```
-
 ## Testing
 
 ```
