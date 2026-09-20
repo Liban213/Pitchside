@@ -58,6 +58,18 @@ func Predict(history []models.Match, homeTeamID, awayTeamID int) (Outcome, error
 	return outcomeFromExpectedGoals(homeXG, awayXG), nil
 }
 
+// Strength returns teamID's attack and defense strength — how many times
+// more or fewer goals it scores/concedes per match than the league average
+// — computed from history's finished matches. Neutral (1.0/1.0) if teamID
+// has no finished matches of its own within history.
+func Strength(history []models.Match, teamID int) (attack, defense float64, err error) {
+	l := newLeague(history)
+	if l.avgPerTeam == 0 {
+		return 0, 0, ErrInsufficientHistory
+	}
+	return l.attack(teamID), l.defense(teamID), nil
+}
+
 func outcomeFromExpectedGoals(homeXG, awayXG float64) Outcome {
 	var o Outcome
 	for i := 0; i <= maxGoals; i++ {

@@ -28,3 +28,15 @@ type Match struct {
 	HomeScore  *int
 	AwayScore  *int
 }
+
+// MatchEvent is a live status/score change for a match, broadcast to
+// WebSocket clients as it happens.
+type MatchEvent struct {
+	MatchID    int         `json:"match_id"`
+	ExternalID int         `json:"external_id"`
+	HomeTeamID int         `json:"home_team_id"`
+	AwayTeamID int         `json:"away_team_id"`
+	Status     MatchStatus `json:"status"`
+	HomeScore  *int        `json:"home_score"`
+	AwayScore  *int        `json:"away_score"`
+}
